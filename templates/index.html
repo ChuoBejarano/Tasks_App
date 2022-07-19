@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width. initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Organizador de Tareas</title>
+	<!--Bootstrap -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+	<!--Fonts-->
+	<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+	<!--CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+	<!--Principal-->
+	<main class="container p-4">
+		<h1 class='display-4 text-center title mt-4'>Tareas</h1>
+		<div class="row">
+			<div class="col-md-4 offset-md-4 my-auto">
+				<div class="card">
+					<div class="card-header">
+						<form action="/crear-tareas" method="POST">
+							<div class="form-group m-2">
+								<input type="text" name="contenido" placeholder="Escriba una tarea" class="form-control" autofocus>
+							</div>
+							<button type="summit" class="btn btn-primary col-12">Guardar</button>
+						</form>
+					</div>
+					<div class="card-body">
+						<ul class="list-group">
+							{% for tarea in tareas %}
+								<li class="list-group-item">
+									<span class="{% if tarea.hecho %} hecho {% endif %}">{{tarea.contenido}}<span>
+									<a href="/hecho/{{tarea.id}}" class="btn btn-success btn-sm">Hecho</a>
+									<a href ="/eliminar/{{tarea.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+								</li>
+							{% endfor %}
+						</ul>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
